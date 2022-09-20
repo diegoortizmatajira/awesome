@@ -11,4 +11,5 @@ end
 return {
 	mapHandler = mapHandler,
 	key = key,
+	numpad_keycodes = { 87, 88, 89, 83, 84, 85, 79, 80, 81, 90 },
 }

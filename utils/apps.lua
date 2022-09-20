@@ -1,6 +1,7 @@
 local awful = require("awful")
+local hotkeys_popup = require("awful.hotkeys_popup").widget
 
-local function spawn(app, with_shell)
+local function spawn_handler(app, with_shell)
 	return function()
 		if with_shell == true then
 			awful.util.spawn_with_shell(app)
@@ -10,12 +11,14 @@ local function spawn(app, with_shell)
 	end
 end
 
-local function spawn_default_app()
-	return spawn(awful.screen.focused().selected_tag.defaultApp)
+local function spawn_default_app_handler()
+	return spawn_handler(awful.screen.focused().selected_tag.defaultApp)
 end
 
 return {
-	spawn = spawn,
-	spawn_app_switcher = spawn("custom-alttab"),
-	spawn_default_app = spawn_default_app(),
+	awesome_restart_handler = awesome.restart,
+	awesome_quit_handler = awesome.quit,
+	awesome_help = hotkeys_popup.show_help,
+	spawn_app_switcher_handler = spawn_handler("custom-alttab"),
+	spawn_default_app_handler = spawn_default_app_handler(),
 }
