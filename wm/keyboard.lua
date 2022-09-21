@@ -1,13 +1,12 @@
 local awful = require("awful")
 local apps = require("utils.apps")
-local mapkey = require("utils.keyboard").mapHandler
+local keyboard = require("utils.keyboard")
 local modalbind = require("utils.modal-bind")
 local mappings = require("settings.mappings")
 local layouts = require("wm.layouts")
 local windows = require("wm.windows")
 local workspaces = require("wm.workspaces")
-local keyboard = require("utils.keyboard")
-local vim = mappings.vim
+local map_handler, vim, key = keyboard.map_handler, keyboard.vim, keyboard.key
 
 local screen_move_map = {
 	{
@@ -71,191 +70,191 @@ local function modal_handler(options)
 	end
 end
 
-local globalKeys = awful.util.table.join(
-	mapkey(
+local global_keys = awful.util.table.join(
+	map_handler(
 		mappings.awesome_restart,
 		apps.awesome_restart_handler,
 		{ description = "Reload Awesome Window Manager", group = "Awesome" }
 	),
-	mapkey(
+	map_handler(
 		mappings.awesome_quit,
 		apps.awesome_quit_handler,
 		{ description = "Quit Awesome Window Manager", group = "Awesome" }
 	),
-	mapkey(
+	map_handler(
 		mappings.awesome_help,
 		apps.awesome_help,
 		{ description = "Show help for Awesome Window Manager", group = "Hotkeys" }
 	),
-	mapkey(
+	map_handler(
 		mappings.system_show_desktop,
 		windows.minimize_all_handler,
 		{ description = "Show desktop", group = "Hotkeys" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_below,
 		windows.focus_below_handler,
 		{ description = "Focus window below", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_above,
 		windows.focus_above_handler,
 		{ description = "Focus window above", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_right,
 		windows.focus_right_handler,
 		{ description = "Focus window on the right", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_left,
 		windows.focus_left_handler,
 		{ description = "Focus window on the left", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_below_alt,
 		windows.focus_below_handler,
 		{ description = "Focus window below", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_above_alt,
 		windows.focus_above_handler,
 		{ description = "Focus window above", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_right_alt,
 		windows.focus_right_handler,
 		{ description = "Focus window on the right", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_left_alt,
 		windows.focus_left_handler,
 		{ description = "Focus window on the left", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_urgent,
 		windows.jump_to_urgent_handler,
 		{ description = "Jump to urgent window", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_switch,
 		apps.spawn_app_switcher_handler,
 		{ description = "Switch to other window", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_previous,
 		workspaces.select_prev_handler,
 		{ description = "Go to previous workspace", group = "Workspaces" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_next,
 		workspaces.select_next_handler,
 		{ description = "Go to next workspace", group = "Workspaces" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_previous_alt,
 		awful.tag.viewprev,
 		{ description = "Go to previous workspace", group = "Workspaces" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_next_alt,
 		awful.tag.viewnext,
 		{ description = "Go to next workspace", group = "Workspaces" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_switch,
 		awful.tag.history.restore,
 		{ description = "Go to last used workspace", group = "Workspaces" }
 	),
-	mapkey(
+	map_handler(
 		mappings.app_workspace_default,
 		apps.spawn_default_app_handler,
 		{ description = "Open default program for workspace", group = "Applications" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_resize_layout,
 		modal_handler({ keymap = layout_modify_map, name = "Modify layout", stay_in_mode = true }),
 		{ description = "Resizes the current layout", group = "Modes" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_relocate,
 		modal_handler({ keymap = screen_move_map, name = "Move current tag to screen", stay_in_mode = true }),
 		{ description = "Relocate current Tag", group = "Modes" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_next_layout,
 		layouts.apply_next_handler,
 		{ description = "Select next Layout", group = "Layout Distribution" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_prev_layout,
 		layouts.apply_previous_handler,
 		{ description = "Select previous Layout", group = "Layout Distribution" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_restore_all,
 		windows.restore_all_handler,
 		{ description = "Restore all windows", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_minimize_all,
 		windows.minimize_all_handler,
 		{ description = "Restore minimized", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_find_empty,
 		workspaces.find_empty_handler,
 		{ description = "Go to new empty workspace", group = "Workspaces" }
 	),
-	mapkey(
+	map_handler(
 		mappings.workspace_move_to_empty,
 		workspaces.move_to_empty_handler,
 		{ description = "Move window to a new empty workspace", group = "Workspaces" }
 	)
 )
 
-local clientKeys = awful.util.table.join(
-	mapkey(
+local client_keys = awful.util.table.join(
+	map_handler(
 		mappings.client_swap_master,
 		windows.promote_to_master_handler,
 		{ description = "Promote to master window", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_full_screen,
 		windows.fullscreen_handler,
 		{ description = "Toggle Fullscreen", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_close, --
 		windows.close_handler,
 		{ description = "Close Window", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_close_alt, --
 		windows.close_handler,
 		{ description = "Close Window", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_prev,
 		windows.select_next_handler,
 		{ description = "Previous window in tag", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_select_next,
 		windows.select_next_handler,
 		{ description = "Next window in tag", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_minimize, --
 		windows.minimize_handler,
 		{ description = "Minimize", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_maximize, --
 		windows.toggle_maximize_handler,
 		{ description = "Maximize", group = "Windows" }
 	),
-	mapkey(
+	map_handler(
 		mappings.client_float, --
 		windows.toggle_floating_handler,
 		{ description = "Make floating", group = "Windows" }
@@ -273,33 +272,33 @@ for i = 1, 10 do
 		descr_toggle = { description = "Toggle tag visibility #", group = "Workspaces" }
 		descr_move = { description = "Move focused window to workspace #", group = "Workspaces" }
 	end
-	globalKeys = awful.util.table.join(
-		globalKeys, -- View tag only.
-		awful.key(mappings.prefix_workspace_goto, "#" .. i + 9, workspaces.select_by_index_handler(i), descr_view), -- Toggle tag display.
-		awful.key(
-			mappings.prefix_workspace_goto,
-			"#" .. keyboard.numpad_keycodes[i],
-			workspaces.select_by_index_handler(i),
-			descr_view
-		), -- Toggle tag display.
-		awful.key(mappings.prefix_workspace_toggle, "#" .. i + 9, workspaces.toggle_by_index_handler(i), descr_toggle), -- Move client to tag.
-		awful.key(
-			mappings.prefix_workspace_toggle,
-			"#" .. keyboard.numpad_keycodes[i],
-			workspaces.toggle_by_index_handler(i),
-			descr_toggle
-		), -- Move client to tag.
-		awful.key(mappings.prefix_workspace_moveto, "#" .. i + 9, workspaces.assign_by_index_handler(i), descr_move), --
-		awful.key(
-			mappings.prefix_workspace_moveto,
-			"#" .. keyboard.numpad_keycodes[i],
-			workspaces.assign_by_index_handler(i),
-			descr_move
-		)
+
+	local select_workspace_mapping = {
+		key(mappings.prefix_workspace_goto, "#" .. i + 9),
+		key(mappings.prefix_workspace_goto, "#" .. keyboard.numpad_keycodes[i]),
+	}
+	local toggle_workspace_mapping = {
+		key(mappings.prefix_workspace_toggle, "#" .. i + 9),
+		key(mappings.prefix_workspace_toggle, "#" .. keyboard.numpad_keycodes[i]),
+	}
+	local move_to_workspace_mapping = {
+		key(mappings.prefix_workspace_moveto, "#" .. i + 9),
+		key(mappings.prefix_workspace_moveto, "#" .. keyboard.numpad_keycodes[i]),
+	}
+	global_keys = awful.util.table.join(
+		global_keys, -- View tag only.
+		map_handler(select_workspace_mapping, workspaces.select_by_index_handler(i), descr_view),
+		map_handler(toggle_workspace_mapping, workspaces.toggle_by_index_handler(i), descr_toggle),
+		map_handler(move_to_workspace_mapping, workspaces.assign_by_index_handler(i), descr_move)
 	)
 end
 
+local function setup()
+	root.keys(keyboard.globalKeys)
+end
+
 return {
-	globalKeys = globalKeys,
-	clientKeys = clientKeys,
+	global_keys = global_keys,
+	client_keys = client_keys,
+	setup = setup,
 }

@@ -94,6 +94,8 @@ local function assing_by_index_handler(i)
 	end
 end
 
+local function setup() end
+
 return {
 	to_left_screen_handler = move_to_screen_handler("left"),
 	to_right_screen_handler = move_to_screen_handler("right"),
@@ -107,4 +109,5 @@ return {
 	toggle_by_index_handler = toggle_by_index_handler,
 	assign_by_index_handler = assing_by_index_handler,
 	tags = tags,
+	setup = setup,
 }
