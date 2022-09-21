@@ -1,6 +1,6 @@
-local mat_colors = require("utils.mat-colors")
 local gears = require("gears")
 local dpi = require("beautiful").xresources.apply_dpi
+local mat_colors = require("utils.mat-colors")
 
 local theme = {}
 local mono_font = "Jetbrains Mono Bold 9"

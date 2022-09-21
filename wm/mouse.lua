@@ -19,9 +19,10 @@ local client_buttons = awful.util.table.join(
 		awful.layout.inc(-1)
 	end)
 )
-local function setup() end
+local function setup()
+	return {
+		client_buttons = client_buttons,
+	}
+end
 
-return {
-	client_buttons = client_buttons,
-	setup = setup,
-}
+return setup

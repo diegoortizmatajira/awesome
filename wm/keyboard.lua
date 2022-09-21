@@ -6,6 +6,7 @@ local mappings = require("settings.mappings")
 local layouts = require("wm.layouts")
 local windows = require("wm.windows")
 local workspaces = require("wm.workspaces")
+local state = require("wm.state")
 local map_handler, vim, key = keyboard.map_handler, keyboard.vim, keyboard.key
 
 local screen_move_map = {
@@ -203,12 +204,12 @@ local global_keys = awful.util.table.join(
 	),
 	map_handler(
 		mappings.workspace_find_empty,
-		workspaces.find_empty_handler,
+		workspaces.find_empty_handler(),
 		{ description = "Go to new empty workspace", group = "Workspaces" }
 	),
 	map_handler(
 		mappings.workspace_move_to_empty,
-		workspaces.move_to_empty_handler,
+		workspaces.move_to_empty_handler(),
 		{ description = "Move window to a new empty workspace", group = "Workspaces" }
 	)
 )
@@ -293,12 +294,5 @@ for i = 1, 10 do
 	)
 end
 
-local function setup()
-	root.keys(keyboard.globalKeys)
-end
-
-return {
-	global_keys = global_keys,
-	client_keys = client_keys,
-	setup = setup,
-}
+root.keys(global_keys)
+state.set_client_keys(client_keys)

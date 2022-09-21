@@ -2,8 +2,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local window_rules = require("settings.window-rules")
-local mouse = require("wm.mouse")
-local keyboard = require("wm.keyboard")
+local state = require("wm.state")
 
 local function focus_by_direction_handler(direction)
 	return function()
@@ -108,7 +107,7 @@ end
 
 local function setup()
 	_setup_signals()
-	awful.rules.rules = window_rules(keyboard.client_keys, mouse.client_buttons)
+	awful.rules.rules = window_rules(state.get_client_keys(), state.get_client_buttons())
 end
 
 return {

@@ -1,6 +1,20 @@
 local awful = require("awful")
 local gears = require("gears")
 
+local function custom_shape()
+	return function(cr, w, h)
+		gears.shape.rounded_rect(cr, w, h, 8)
+	end
+end
+
+local floating_properties = {
+	placement = awful.placement.centered,
+	floating = true,
+	drawBackdrop = true,
+	shape = custom_shape,
+	skip_decoration = true,
+}
+
 local function setup(client_keys, client_buttons)
 	return {
 		-- All clients will match this rule.
@@ -27,102 +41,33 @@ local function setup(client_keys, client_buttons)
 			rule = { name = "Picture-in-Picture" },
 			properties = {
 				floating = true,
-				shape = function()
-					return function(cr, w, h)
-						gears.shape.rounded_rect(cr, w, h, 8)
-					end
-				end,
+				shape = custom_shape,
 				skip_decoration = true,
 			},
 		},
 		{
 			rule = { class = "zoom", name = "Settings" },
-			properties = {
-				placement = awful.placement.centered,
-				floating = true,
-				drawBackdrop = true,
-				shape = function()
-					return function(cr, w, h)
-						gears.shape.rounded_rect(cr, w, h, 8)
-					end
-				end,
-				skip_decoration = true,
-			},
+			properties = floating_properties,
 		},
 		{
 			rule = { class = "zoom", name = "Select.*" },
-			properties = {
-				placement = awful.placement.centered,
-				floating = true,
-				drawBackdrop = false,
-				shape = function()
-					return function(cr, w, h)
-						gears.shape.rounded_rect(cr, w, h, 8)
-					end
-				end,
-				skip_decoration = true,
-			},
+			properties = floating_properties,
 		},
 		{
 			rule = { class = "jetbrains-.*", name = "Welcome to JetBrains Rider" },
-			properties = {
-				placement = awful.placement.centered,
-				ontop = true,
-				floating = true,
-				drawBackdrop = true,
-				shape = function()
-					return function(cr, w, h)
-						gears.shape.rounded_rect(cr, w, h, 8)
-					end
-				end,
-				skip_decoration = true,
-			},
+			properties = floating_properties,
 		},
 		{
 			rule = { class = "jetbrains-.*", name = "win0" },
-			properties = {
-				placement = awful.placement.centered,
-				ontop = true,
-				floating = true,
-				drawBackdrop = true,
-				shape = function()
-					return function(cr, w, h)
-						gears.shape.rounded_rect(cr, w, h, 8)
-					end
-				end,
-				skip_decoration = true,
-			},
+			properties = floating_properties,
 		},
-		-- Titlebars
 		{
 			rule_any = { type = { "dialog" }, class = { "Wicd-client.py", "calendar.google.com" }, role = { "Popup" } },
-			properties = {
-				placement = awful.placement.centered,
-				ontop = true,
-				floating = true,
-				drawBackdrop = true,
-				shape = function()
-					return function(cr, w, h)
-						gears.shape.rounded_rect(cr, w, h, 8)
-					end
-				end,
-				skip_decoration = true,
-			},
+			properties = floating_properties,
 		},
 		{
 			rule = { class = "Xfce4-display-settings" },
-			properties = {
-				placement = awful.placement.centered,
-				ontop = true,
-				floating = true,
-				drawBackdrop = true,
-				shape = function()
-					return function(cr, w, h)
-						gears.shape.rounded_rect(cr, w, h, 8)
-					end
-				end,
-				skip_decoration = true,
-			},
+			properties = floating_properties,
 		},
 		{
 			rule_any = { type = { "desktop" } },
