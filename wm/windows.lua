@@ -14,6 +14,48 @@ local function toggle_all_handler(minimized)
 	end
 end
 
+local function promote_to_master_handler(c)
+	c:swap(awful.client.getmaster())
+end
+
+local function fullscreen_handler(c)
+	c.fullscreen = not c.fullscreen
+	c:raise()
+end
+
+local function close_handler(c)
+	c:kill()
+end
+
+local function select_prev_handler()
+	local selection = awful.client.next(-1)
+	if selection then
+		client.focus = selection
+		selection:raise()
+	end
+end
+
+local function select_next_handler()
+	local selection = awful.client.next(1)
+	if selection then
+		client.focus = selection
+		selection:raise()
+	end
+end
+
+local function minimize_handler(c)
+	c.minimized = true
+end
+
+local function toggle_maximize_handler(c)
+	c.maximized = not c.maximized
+	c:raise()
+end
+
+local function toggle_floating_handler(c)
+	c.floating = not c.floating
+end
+
 return {
 	focus_left_handler = focus_by_direction_handler("left"),
 	focus_right_handler = focus_by_direction_handler("right"),
@@ -22,4 +64,12 @@ return {
 	minimize_all_handler = toggle_all_handler(true),
 	restore_all_handler = toggle_all_handler(false),
 	jump_to_urgent_handler = awful.client.urgent.jumpto,
+	promote_to_master_handler = promote_to_master_handler,
+	fullscreen_handler = fullscreen_handler,
+	close_handler = close_handler,
+	select_next_handler = select_next_handler,
+	select_prev_handler = select_prev_handler,
+	minimize_handler = minimize_handler,
+	toggle_maximize_handler = toggle_maximize_handler,
+	toggle_floating_handler = toggle_floating_handler,
 }

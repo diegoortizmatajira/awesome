@@ -214,6 +214,54 @@ local globalKeys = awful.util.table.join(
 	)
 )
 
+local clientKeys = awful.util.table.join(
+	mapkey(
+		mappings.client_swap_master,
+		windows.promote_to_master_handler,
+		{ description = "Promote to master window", group = "Windows" }
+	),
+	mapkey(
+		mappings.client_full_screen,
+		windows.fullscreen_handler,
+		{ description = "Toggle Fullscreen", group = "Windows" }
+	),
+	mapkey(
+		mappings.client_close, --
+		windows.close_handler,
+		{ description = "Close Window", group = "Windows" }
+	),
+	mapkey(
+		mappings.client_close_alt, --
+		windows.close_handler,
+		{ description = "Close Window", group = "Windows" }
+	),
+	mapkey(
+		mappings.client_select_prev,
+		windows.select_next_handler,
+		{ description = "Previous window in tag", group = "Windows" }
+	),
+	mapkey(
+		mappings.client_select_next,
+		windows.select_next_handler,
+		{ description = "Next window in tag", group = "Windows" }
+	),
+	mapkey(
+		mappings.client_minimize, --
+		windows.minimize_handler,
+		{ description = "Minimize", group = "Windows" }
+	),
+	mapkey(
+		mappings.client_maximize, --
+		windows.toggle_maximize_handler,
+		{ description = "Maximize", group = "Windows" }
+	),
+	mapkey(
+		mappings.client_float, --
+		windows.toggle_floating_handler,
+		{ description = "Make floating", group = "Windows" }
+	)
+)
+
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
@@ -251,4 +299,7 @@ for i = 1, 10 do
 	)
 end
 
-return globalKeys
+return {
+	globalKeys = globalKeys,
+	clientKeys = clientKeys,
+}
