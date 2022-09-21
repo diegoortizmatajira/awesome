@@ -1,6 +1,6 @@
-local keyboard = require("utils.keyboard")
+local input = require("utils.input")
 local key, common, vim, metaKey, ctrlKey, altKey, shiftKey =
-	keyboard.key, keyboard.common, keyboard.vim, keyboard.metaKey, keyboard.ctrlKey, keyboard.altKey, keyboard.shiftKey
+	input.key, input.common, input.vim, input.metaKey, input.ctrlKey, input.altKey, input.shiftKey
 
 return {
 	app_workspace_default = key({ metaKey }, common.Return),

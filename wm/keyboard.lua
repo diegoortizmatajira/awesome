@@ -1,13 +1,13 @@
 local awful = require("awful")
 local apps = require("utils.apps")
-local keyboard = require("utils.keyboard")
+local input = require("utils.input")
 local modalbind = require("utils.modal-bind")
 local mappings = require("settings.mappings")
 local layouts = require("wm.layouts")
 local windows = require("wm.windows")
 local workspaces = require("wm.workspaces")
 local state = require("wm.state")
-local map_handler, vim, key = keyboard.map_handler, keyboard.vim, keyboard.key
+local map_handler, vim, key = input.map_handler, input.vim, input.key
 
 local screen_move_map = {
 	{
@@ -276,15 +276,15 @@ for i = 1, 10 do
 
 	local select_workspace_mapping = {
 		key(mappings.prefix_workspace_goto, "#" .. i + 9),
-		key(mappings.prefix_workspace_goto, "#" .. keyboard.numpad_keycodes[i]),
+		key(mappings.prefix_workspace_goto, "#" .. input.numpad_keycodes[i]),
 	}
 	local toggle_workspace_mapping = {
 		key(mappings.prefix_workspace_toggle, "#" .. i + 9),
-		key(mappings.prefix_workspace_toggle, "#" .. keyboard.numpad_keycodes[i]),
+		key(mappings.prefix_workspace_toggle, "#" .. input.numpad_keycodes[i]),
 	}
 	local move_to_workspace_mapping = {
 		key(mappings.prefix_workspace_moveto, "#" .. i + 9),
-		key(mappings.prefix_workspace_moveto, "#" .. keyboard.numpad_keycodes[i]),
+		key(mappings.prefix_workspace_moveto, "#" .. input.numpad_keycodes[i]),
 	}
 	global_keys = awful.util.table.join(
 		global_keys, -- View tag only.
@@ -294,5 +294,11 @@ for i = 1, 10 do
 	)
 end
 
-root.keys(global_keys)
-state.set_client_keys(client_keys)
+local function setup()
+	root.keys(global_keys)
+	state.set_client_keys(client_keys)
+end
+
+return {
+	setup = setup,
+}

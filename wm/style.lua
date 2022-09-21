@@ -1,3 +1,9 @@
 local beautiful = require("beautiful")
 
-beautiful.init(require("settings.theme"))
+local function setup()
+	beautiful.init(require("settings.theme"))
+end
+
+return {
+	setup = setup,
+}
