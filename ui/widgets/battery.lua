@@ -6,6 +6,7 @@ local naughty = require("naughty")
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
 local clickable_container = require("ui.widgets.clickable-container")
+local commands            = require("settings.commands")
 
 local batteryarc_widget = {}
 
@@ -83,7 +84,7 @@ local function worker(user_args)
 	-- Popup with battery info
 	local notification
 	local function show_battery_status()
-		awful.spawn.easy_async([[bash -c 'acpi']], function(stdout, _, _, _)
+		awful.spawn.easy_async(commands.check_battery_status, function(stdout, _, _, _)
 			naughty.destroy(notification)
 			notification = naughty.notify({ text = stdout, title = "Battery status", timeout = 5, width = 200 })
 		end)

@@ -1,7 +1,19 @@
 local awful = require("awful")
 local gears = require("gears")
 
-local function custom_shape()
+local function maximized_window_shape()
+	return function(cr, w, h)
+		gears.shape.rectangle(cr, w, h)
+	end
+end
+
+local function tiled_window_shape()
+	return function(cr, w, h)
+		gears.shape.rounded_rect(cr, w, h, 8)
+	end
+end
+
+local function floating_window_shape()
 	return function(cr, w, h)
 		gears.shape.rounded_rect(cr, w, h, 8)
 	end
@@ -11,37 +23,41 @@ local floating_properties = {
 	placement = awful.placement.centered,
 	floating = true,
 	drawBackdrop = true,
-	shape = custom_shape,
+	shape = floating_window_shape,
 	skip_decoration = true,
 }
 
-local function setup(client_keys, client_buttons)
+local function reset_window_properties(properties)
+	properties.floating = false
+	properties.maximized = false
+	properties.above = false
+	properties.below = false
+	properties.ontop = false
+	properties.sticky = false
+	properties.maximized_horizontal = false
+	properties.maximized_vertical = false
+	return properties
+end
+
+local function build(client_keys, client_buttons)
 	return {
 		-- All clients will match this rule.
 		{
 			rule = {},
-			properties = {
+			properties = reset_window_properties({
 				focus = awful.client.focus.filter,
 				raise = true,
 				keys = client_keys,
 				buttons = client_buttons,
 				screen = awful.screen.preferred,
 				placement = awful.placement.no_offscreen,
-				floating = false,
-				maximized = false,
-				above = false,
-				below = false,
-				ontop = false,
-				sticky = false,
-				maximized_horizontal = false,
-				maximized_vertical = false,
-			},
+			}),
 		},
 		{
 			rule = { name = "Picture-in-Picture" },
 			properties = {
 				floating = true,
-				shape = custom_shape,
+				shape = floating_window_shape,
 				skip_decoration = true,
 			},
 		},
@@ -76,4 +92,9 @@ local function setup(client_keys, client_buttons)
 	}
 end
 
-return setup
+return {
+	build = build,
+	maximized_window_shape = maximized_window_shape,
+	tiled_window_shape = tiled_window_shape,
+	reset_window_properties = reset_window_properties,
+}

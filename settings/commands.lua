@@ -1,11 +1,16 @@
 return {
 	application_switcher = "custom-alttab",
 	application_launcher = "custom-launcher",
+	power_options = "custom-askpoweroptions",
 	terminal = "kitty",
 	lock = "custom-lock",
 	internet_browser = "firefox-developer-edition",
 	editor = "subl",
 	files = "nautilus",
-	vnp_widget_command = [[bash -c "nordvpn status | grep Country | cut -d ' ' -f2- && echo ''"]],
+	check_battery_status = [[bash -c 'acpi']],
+	check_vnp_status = [[bash -c "nordvpn status | grep Country | cut -d ' ' -f2- && echo ''"]],
+	check_keyboard_status = [[bash -c "localectl status | grep Layout | cut -d ':' -f2- && echo ''"]],
+	check_wifi_strengh_status = [[awk 'NR==3 {printf "%3.0f" ,($3/70)*100}' /proc/net/wireless]],
+	check_wifi_network_status = [[iwgetid -r]],
 	vpn_launcher = "custom-nordvpn-menu",
 }

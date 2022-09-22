@@ -24,25 +24,13 @@ local function renderClient(client, mode)
 	end
 
 	client.rendering_mode = mode
-	client.floating = false
-	client.maximized = false
-	client.above = false
-	client.below = false
-	client.ontop = false
-	client.sticky = false
-	client.maximized_horizontal = false
-	client.maximized_vertical = false
-
+    window_rules.reset_window_properties(client)
 	if client.rendering_mode == "maximized" then
 		client.border_width = 0
-		client.shape = function(cr, w, h)
-			gears.shape.rectangle(cr, w, h)
-		end
+		client.shape = window_rules.maximized_window_shape
 	elseif client.rendering_mode == "tiled" then
 		client.border_width = beautiful.border_width
-		client.shape = function(cr, w, h)
-			gears.shape.rounded_rect(cr, w, h, 8)
-		end
+		client.shape = window_rules.tiled_window_shape
 	end
 end
 
@@ -142,7 +130,7 @@ end)
 awful.screen.connect_for_each_screen(function(s)
 	-- Create the Top panel
 	s.top_panel = top_panel(s)
-    -- assign the tags corresponding to current screen
+	-- assign the tags corresponding to current screen
 	local taglist = state.get_tags()
 	for _, t in ipairs(taglist) do
 		if t.screen.index == s.index then
@@ -151,4 +139,4 @@ awful.screen.connect_for_each_screen(function(s)
 	end
 end)
 
-awful.rules.rules = window_rules(state.get_client_keys(), state.get_client_buttons())
+awful.rules.rules = window_rules.build(state.get_client_keys(), state.get_client_buttons())

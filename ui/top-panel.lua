@@ -20,7 +20,6 @@ local mat_colors = require("utils.mat-colors")
 local dpi = require("beautiful").xresources.apply_dpi
 
 -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-local gears = require("gears")
 -- We need one layoutbox per screen.
 local LayoutBox = function(s)
 	local layoutBox = clickable_container(awful.widget.layoutbox(s))

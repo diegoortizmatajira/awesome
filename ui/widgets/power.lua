@@ -2,6 +2,7 @@ local font_icons = require("ui.widgets.font-icons")
 local wibox = require("wibox")
 local awful = require("awful")
 local clickable_container = require("ui.widgets.clickable-container")
+local commands            = require("settings.commands")
 
 local function Power(_, color)
 	local custom_widget = {
@@ -15,7 +16,7 @@ local function Power(_, color)
 	}
 	local layoutBox = clickable_container(custom_widget)
 	layoutBox:buttons(awful.util.table.join(awful.button({}, 1, function()
-		awful.spawn("custom-askpoweroptions")
+		awful.spawn(commands.power_options)
 	end)))
 	return layoutBox
 end

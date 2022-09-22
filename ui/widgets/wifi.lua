@@ -1,4 +1,5 @@
 local font_icons = require("ui.widgets.font-icons")
+local commands   = require("settings.commands")
 
 local awful = require("awful")
 local beautiful = require("beautiful")
@@ -59,12 +60,12 @@ local function worker(user_args)
 		widget.colors = { main_color }
 	end
 
-	watch([[awk 'NR==3 {printf "%3.0f" ,($3/70)*100}' /proc/net/wireless]], timeout, update_widget, wifiarc_widget)
+	watch(commands.check_wifi_strengh_status, timeout, update_widget, wifiarc_widget)
 
 	-- Popup with battery info
 	local notification
 	local function show_wifi_status()
-		awful.spawn.easy_async([[iwgetid -r]], function(stdout, _, _, _)
+		awful.spawn.easy_async(commands.check_wifi_network_status, function(stdout, _, _, _)
 			naughty.destroy(notification)
 			notification =
 				naughty.notify({ text = "SSID: " .. stdout, title = "Wifi status", timeout = 5, width = 200 })

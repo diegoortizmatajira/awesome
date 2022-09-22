@@ -9,7 +9,7 @@ local function Vpn(_, color)
 		{
 			font_icons.make_faicon(font_icons.vpn, color.hue_500, 5),
 			{
-				awful.widget.watch(commands.vnp_widget_command, 15),
+				awful.widget.watch(commands.check_vnp_status, 15),
 				fg = color.hue_100,
 				widget = wibox.container.background,
 			},
