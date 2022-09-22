@@ -1,8 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")
-local window_rules = require("settings.window-rules")
-local state = require("wm.state")
 
 local function focus_by_direction_handler(direction)
 	return function()
@@ -77,37 +75,32 @@ local function _get_default_icon()
 	return default_icon
 end
 
-local function _setup_signals()
-	-- Signal function to execute when a new client appears.
-	client.connect_signal("manage", function(c)
-		-- Set the windows at the slave,
-		-- i.e. put it at the end of others instead of setting it master.
-		if not awesome.startup then
-			awful.client.setslave(c)
-		end
+local function manage_signal_handler(c)
+	-- Set the windows at the slave,
+	-- i.e. put it at the end of others instead of setting it master.
+	if not awesome.startup then
+		awful.client.setslave(c)
+	end
 
-		if awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
-			-- Prevent clients from being unreachable after screen count changes.
-			awful.placement.no_offscreen(c)
-		end
-		-- Adds a default icon to the client if it doesn't exist'
-		if c and c.valid and not c.icon then
-			c.icon = _get_default_icon()
-		end
-	end)
+	if awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
+		-- Prevent clients from being unreachable after screen count changes.
+		awful.placement.no_offscreen(c)
+	end
+	-- Adds a default icon to the client if it doesn't exist'
+	if c and c.valid and not c.icon then
+		c.icon = _get_default_icon()
+	end
+end
 
-	-- Make the focused window have a glowing border
-	client.connect_signal("focus", function(c)
-		c.border_color = beautiful.border_focus
-	end)
-	client.connect_signal("unfocus", function(c)
-		c.border_color = beautiful.border_normal
-	end)
+local function focus_signal_handler(c)
+	c.border_color = beautiful.border_focus
+end
+
+local function unfocus_signal_handler(c)
+	c.border_color = beautiful.border_normal
 end
 
 local function setup()
-	_setup_signals()
-	awful.rules.rules = window_rules(state.get_client_keys(), state.get_client_buttons())
 end
 
 return {
@@ -126,5 +119,8 @@ return {
 	minimize_handler = minimize_handler,
 	toggle_maximize_handler = toggle_maximize_handler,
 	toggle_floating_handler = toggle_floating_handler,
+	manage_signal_handler = manage_signal_handler,
+	focus_signal_handler = focus_signal_handler,
+	unfocus_signal_handler = unfocus_signal_handler,
 	setup = setup,
 }

@@ -110,6 +110,14 @@ local _get_default_screen = function(preferred_screen)
 	end
 end
 
+local function smart_layout_gaps_handler(t)
+	local currentLayout = awful.tag.getproperty(t, "layout")
+	if currentLayout == awful.layout.suit.max then
+		t.gap = 0
+	else
+		t.gap = 4
+	end
+end
 local taglist
 
 local function setup()
@@ -128,22 +136,7 @@ local function setup()
 			)
 		end
 	end
-	awful.screen.connect_for_each_screen(function(s)
-		for _, t in ipairs(taglist) do
-			if t.screen.index == s.index then
-				t:view_only()
-			end
-		end
-	end)
 
-	tag.connect_signal("property::layout", function(t)
-		local currentLayout = awful.tag.getproperty(t, "layout")
-		if currentLayout == awful.layout.suit.max then
-			t.gap = 0
-		else
-			t.gap = 4
-		end
-	end)
 
 	state.set_tags(taglist)
 end
@@ -160,5 +153,6 @@ return {
 	select_by_index_handler = select_by_index_handler,
 	toggle_by_index_handler = toggle_by_index_handler,
 	assign_by_index_handler = assing_by_index_handler,
+	smart_layout_gaps_handler = smart_layout_gaps_handler,
 	setup = setup,
 }
