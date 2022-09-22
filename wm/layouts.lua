@@ -1,4 +1,5 @@
 local awful = require("awful")
+local enabled_layouts = require("settings.enabled-layouts")
 
 local function decrease_master_size_handler()
 	awful.tag.incmwfact(-0.05)
@@ -32,7 +33,9 @@ local function apply_previous_handler()
 	awful.layout.inc(-1)
 end
 
-local function setup() end
+local function setup()
+	awful.layout.layouts = enabled_layouts
+end
 
 return {
 	decrease_master_size_handler = decrease_master_size_handler,

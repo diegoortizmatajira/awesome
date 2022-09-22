@@ -21,5 +21,5 @@ return {
 	awesome_quit_handler = awesome.quit,
 	awesome_help = hotkeys_popup.show_help,
 	spawn_app_switcher_handler = spawn_handler(commands.application_switcher),
-	spawn_default_app_handler = spawn_default_app_handler(),
+	spawn_default_app_handler = spawn_default_app_handler,
 }

@@ -1,5 +1,6 @@
 local awful = require("awful")
 local state = require("wm.state")
+local workspace_tags = require("settings.workspace-tags")
 
 local MOVE_TO_CURRENT_DISPLAY = false
 
@@ -100,9 +101,51 @@ local function assing_by_index_handler(i)
 	end
 end
 
+local _get_default_screen = function(preferred_screen)
+	local screen_count = screen.count()
+	if preferred_screen <= screen_count then
+		return preferred_screen
+	else
+		return screen_count
+	end
+end
+
+local taglist
+
 local function setup()
-	local tags = {}
-	state.set_tags(tags)
+	if taglist == nil or #taglist == 0 then
+		taglist = {}
+		for _, tag in ipairs(workspace_tags) do
+			table.insert(
+				taglist,
+				awful.tag.add(tag.name, {
+					layout = tag.layout,
+					gap_single_client = false,
+					gap = 4,
+					screen = _get_default_screen(tag.screen),
+					defaultApp = tag.defaultApp,
+				})
+			)
+		end
+	end
+	awful.screen.connect_for_each_screen(function(s)
+		for _, t in ipairs(taglist) do
+			if t.screen.index == s.index then
+				t:view_only()
+			end
+		end
+	end)
+
+	tag.connect_signal("property::layout", function(t)
+		local currentLayout = awful.tag.getproperty(t, "layout")
+		if currentLayout == awful.layout.suit.max then
+			t.gap = 0
+		else
+			t.gap = 4
+		end
+	end)
+
+	state.set_tags(taglist)
 end
 
 return {

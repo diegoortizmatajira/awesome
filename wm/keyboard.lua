@@ -113,26 +113,6 @@ local global_keys = awful.util.table.join(
 		{ description = "Focus window on the left", group = "Windows" }
 	),
 	map_handler(
-		mappings.client_select_below_alt,
-		windows.focus_below_handler,
-		{ description = "Focus window below", group = "Windows" }
-	),
-	map_handler(
-		mappings.client_select_above_alt,
-		windows.focus_above_handler,
-		{ description = "Focus window above", group = "Windows" }
-	),
-	map_handler(
-		mappings.client_select_right_alt,
-		windows.focus_right_handler,
-		{ description = "Focus window on the right", group = "Windows" }
-	),
-	map_handler(
-		mappings.client_select_left_alt,
-		windows.focus_left_handler,
-		{ description = "Focus window on the left", group = "Windows" }
-	),
-	map_handler(
 		mappings.client_select_urgent,
 		windows.jump_to_urgent_handler,
 		{ description = "Jump to urgent window", group = "Windows" }
@@ -150,16 +130,6 @@ local global_keys = awful.util.table.join(
 	map_handler(
 		mappings.workspace_next,
 		workspaces.select_next_handler,
-		{ description = "Go to next workspace", group = "Workspaces" }
-	),
-	map_handler(
-		mappings.workspace_previous_alt,
-		awful.tag.viewprev,
-		{ description = "Go to previous workspace", group = "Workspaces" }
-	),
-	map_handler(
-		mappings.workspace_next_alt,
-		awful.tag.viewnext,
 		{ description = "Go to next workspace", group = "Workspaces" }
 	),
 	map_handler(
@@ -204,12 +174,12 @@ local global_keys = awful.util.table.join(
 	),
 	map_handler(
 		mappings.workspace_find_empty,
-		workspaces.find_empty_handler(),
+		workspaces.find_empty_handler,
 		{ description = "Go to new empty workspace", group = "Workspaces" }
 	),
 	map_handler(
 		mappings.workspace_move_to_empty,
-		workspaces.move_to_empty_handler(),
+		workspaces.move_to_empty_handler,
 		{ description = "Move window to a new empty workspace", group = "Workspaces" }
 	)
 )
@@ -227,11 +197,6 @@ local client_keys = awful.util.table.join(
 	),
 	map_handler(
 		mappings.client_close, --
-		windows.close_handler,
-		{ description = "Close Window", group = "Windows" }
-	),
-	map_handler(
-		mappings.client_close_alt, --
 		windows.close_handler,
 		{ description = "Close Window", group = "Windows" }
 	),
