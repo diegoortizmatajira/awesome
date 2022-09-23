@@ -132,7 +132,4 @@ theme.tasklist_fg_normal = "#AAAAAA"
 
 theme.icon_theme = "Papirus-Dark"
 
-local log = require("utils.log")
-log.log_print("theme", theme)
-print("theme value:", theme)
 return theme

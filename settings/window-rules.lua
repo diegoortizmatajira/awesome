@@ -40,7 +40,6 @@ local function reset_window_properties(properties)
 end
 
 local function build(client_keys, client_buttons)
-    print ("Building rules: ", client_keys, client_buttons)
 	return {
 		-- All clients will match this rule.
 		{

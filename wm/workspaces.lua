@@ -137,10 +137,8 @@ local function setup()
 		end
 	end
 	state.set_tags(taglist)
-	print("Workspace (Tags) setup called")
 end
 
-print("Workspace (Tags) module loaded")
 return {
 	to_left_screen_handler = move_to_screen_handler("left"),
 	to_right_screen_handler = move_to_screen_handler("right"),

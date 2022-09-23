@@ -83,10 +83,8 @@ local function unfocus_signal_handler(c)
 end
 
 local function setup()
-	print("Windows (Clients) setup called")
 end
 
-print("Windows (Clients) module loaded")
 return {
 	focus_left_handler = focus_by_direction_handler("left"),
 	focus_right_handler = focus_by_direction_handler("right"),
