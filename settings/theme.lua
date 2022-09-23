@@ -1,3 +1,4 @@
+local filesystem = require("gears.filesystem")
 local gears = require("gears")
 local dpi = require("beautiful").xresources.apply_dpi
 local mat_colors = require("utils.mat-colors")
@@ -21,6 +22,9 @@ theme.accent = mat_colors.orange
 -- Background
 theme.background = mat_colors.background
 theme.panel_background = theme.background.hue_800 .. "AA"
+
+theme.icons = filesystem.get_configuration_dir() .. "/icons"
+
 local transparent = "#00000000"
 
 local awesome_overrides = function(new_theme)
@@ -118,4 +122,7 @@ local awesome_overrides = function(new_theme)
 
 	new_theme.icon_theme = "Papirus-Dark"
 end
-return { theme = theme, awesome_overrides = awesome_overrides }
+return {
+	theme = theme,
+	awesome_overrides = awesome_overrides,
+}

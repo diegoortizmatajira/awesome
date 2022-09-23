@@ -5,7 +5,10 @@ local clickable_container = require("ui.widgets.clickable-container")
 
 local function control_center_toggle(_, color)
 	local custom_widget = {
-		{ font_icons.make_faicon(font_icons.notification, color.hue_500), layout = wibox.layout.fixed.horizontal },
+		{
+			font_icons.make_faicon(font_icons.notification, color.hue_500),
+			layout = wibox.layout.fixed.horizontal,
+		},
 		left = 5,
 		right = 5,
 		widget = wibox.container.margin,

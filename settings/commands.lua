@@ -2,6 +2,7 @@ return {
 	application_switcher = "custom-alttab",
 	application_launcher = "custom-launcher",
 	power_options = "custom-askpoweroptions",
+    bluetooth_options = "blueman-manager",
 	terminal = "kitty",
 	lock = "custom-lock",
 	internet_browser = "firefox-developer-edition",
