@@ -24,7 +24,7 @@ local function renderClient(client, mode)
 	end
 
 	client.rendering_mode = mode
-    window_rules.reset_window_properties(client)
+	window_rules.reset_window_properties(client)
 	if client.rendering_mode == "maximized" then
 		client.border_width = 0
 		client.shape = window_rules.maximized_window_shape
@@ -82,22 +82,22 @@ local function tagCallback(tag)
 	end
 end
 
-tag.connect_signal("property::selected", tagCallback)
+_G.tag.connect_signal("property::selected", tagCallback)
 
-tag.connect_signal("property::layout", tagCallback)
+_G.tag.connect_signal("property::layout", tagCallback)
 
-tag.connect_signal("property::selected", function(_)
+_G.tag.connect_signal("property::selected", function(_)
 	updateBarsVisibility()
 end)
 
-tag.connect_signal("property::layout", workspaces.smart_layout_gaps_handler)
+_G.tag.connect_signal("property::layout", workspaces.smart_layout_gaps_handler)
 
-client.connect_signal("property::fullscreen", function(c)
+_G.client.connect_signal("property::fullscreen", function(c)
 	c.screen.selected_tag.fullscreenMode = c.fullscreen
 	updateBarsVisibility()
 end)
 
-client.connect_signal("unmanage", function(c)
+_G.client.connect_signal("unmanage", function(c)
 	if c.fullscreen then
 		c.screen.selected_tag.fullscreenMode = false
 		updateBarsVisibility()
@@ -105,21 +105,21 @@ client.connect_signal("unmanage", function(c)
 end)
 
 -- Signal function to execute when a new client appears.
-client.connect_signal("manage", clientCallback)
+_G.client.connect_signal("manage", clientCallback)
 
-client.connect_signal("manage", windows.manage_signal_handler)
+_G.client.connect_signal("manage", windows.manage_signal_handler)
 
-client.connect_signal("focus", windows.focus_signal_handler)
+_G.client.connect_signal("focus", windows.focus_signal_handler)
 
-client.connect_signal("unfocus", windows.unfocus_signal_handler)
+_G.client.connect_signal("unfocus", windows.unfocus_signal_handler)
 
-client.connect_signal("unmanage", clientCallback)
+_G.client.connect_signal("unmanage", clientCallback)
 
-client.connect_signal("property::hidden", clientCallback)
+_G.client.connect_signal("property::hidden", clientCallback)
 
-client.connect_signal("property::minimized", clientCallback)
+_G.client.connect_signal("property::minimized", clientCallback)
 
-client.connect_signal("property::fullscreen", function(c)
+_G.client.connect_signal("property::fullscreen", function(c)
 	if c.fullscreen then
 		renderClient(c, "maximized")
 	else
@@ -140,3 +140,4 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 
 awful.rules.rules = window_rules.build(state.get_client_keys(), state.get_client_buttons())
+print("UI Module initialized")

@@ -1,6 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
-local metaKey = require("utils.input").metaKey
+local mappings = require("settings.mappings")
 local font_icons = require("ui.widgets.font-icons")
 local gears = require("gears")
 
@@ -19,14 +19,14 @@ local TagList = function(s, color)
 					awful.button({}, 1, function(t)
 						t:view_only()
 					end),
-					awful.button({ metaKey }, 1, function(t)
+					awful.button(mappings.prefix_workspace_moveto, 1, function(t)
 						if client.focus then
 							client.focus:move_to_tag(t)
 							t:view_only()
 						end
 					end),
 					awful.button({}, 3, awful.tag.viewtoggle),
-					awful.button({ metaKey }, 3, function(t)
+					awful.button(mappings.prefix_workspace_toggle, 3, function(t)
 						if client.focus then
 							client.focus:toggle_tag(t)
 						end

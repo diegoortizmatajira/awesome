@@ -1,6 +1,5 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
-local gears = require("gears")
 
 local function focus_by_direction_handler(direction)
 	return function()
@@ -58,23 +57,6 @@ local function toggle_floating_handler(c)
 	c.floating = not c.floating
 end
 
-local default_icon
-
-local function _get_default_icon()
-	if default_icon then
-		return default_icon
-	end
-	local cairo = require("lgi").cairo
-	local default_icon_path = "/usr/share/icons/default.svg"
-	local s = gears.surface(default_icon_path)
-	local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
-	local cr = cairo.Context(img)
-	cr:set_source_surface(s, 0, 0)
-	cr:paint()
-	default_icon = img._native
-	return default_icon
-end
-
 local function manage_signal_handler(c)
 	-- Set the windows at the slave,
 	-- i.e. put it at the end of others instead of setting it master.
@@ -87,8 +69,8 @@ local function manage_signal_handler(c)
 		awful.placement.no_offscreen(c)
 	end
 	-- Adds a default icon to the client if it doesn't exist'
-	if c and c.valid and not c.icon then
-		c.icon = _get_default_icon()
+	if c and c.valid and not c.icon and beautiful.default_app_icon then
+		c.icon = beautiful.default_app_icon
 	end
 end
 
@@ -101,8 +83,10 @@ local function unfocus_signal_handler(c)
 end
 
 local function setup()
+	print("Windows (Clients) setup called")
 end
 
+print("Windows (Clients) module loaded")
 return {
 	focus_left_handler = focus_by_direction_handler("left"),
 	focus_right_handler = focus_by_direction_handler("right"),

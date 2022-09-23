@@ -126,7 +126,7 @@ local function setup()
 		for _, tag in ipairs(workspace_tags) do
 			table.insert(
 				taglist,
-				awful.tag.add(tag.name, {
+				awful.tag.add(tag.nahe, {
 					layout = tag.layout,
 					gap_single_client = false,
 					gap = 4,
@@ -136,11 +136,11 @@ local function setup()
 			)
 		end
 	end
-
-
 	state.set_tags(taglist)
+	print("Workspace (Tags) setup called")
 end
 
+print("Workspace (Tags) module loaded")
 return {
 	to_left_screen_handler = move_to_screen_handler("left"),
 	to_right_screen_handler = move_to_screen_handler("right"),

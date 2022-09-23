@@ -1,3 +1,4 @@
+require('awful.autofocus')
 require("wm")
 require("ui")
 
