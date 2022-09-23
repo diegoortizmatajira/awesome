@@ -1,5 +1,5 @@
 local font_icons = require("ui.widgets.font-icons")
-local mat_colors = require("theme.mat-colors")
+local mat_colors = require("utils.mat-colors")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local naughty = require("naughty")

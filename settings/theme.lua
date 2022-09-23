@@ -23,7 +23,7 @@ theme.accent = mat_colors.orange
 theme.background = mat_colors.background
 theme.panel_background = theme.background.hue_800 .. "AA"
 
-theme.icons = filesystem.get_configuration_dir() .. "/icons"
+theme.icons = filesystem.get_configuration_dir() .. "/icons/"
 
 local transparent = "#00000000"
 
