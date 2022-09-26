@@ -118,15 +118,15 @@ local function smart_layout_gaps_handler(t)
 		t.gap = 4
 	end
 end
-local taglist
 
 local function setup()
+	local taglist
 	if taglist == nil or #taglist == 0 then
 		taglist = {}
 		for _, tag in ipairs(workspace_tags) do
 			table.insert(
 				taglist,
-				awful.tag.add(tag.nahe, {
+				awful.tag.add(tag.name, {
 					layout = tag.layout,
 					gap_single_client = false,
 					gap = 4,

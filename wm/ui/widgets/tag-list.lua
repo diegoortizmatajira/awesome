@@ -1,8 +1,8 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local gears = require("gears")
 local mappings = require("settings.mappings")
 local font_icons = require("wm.ui.widgets.font-icons")
-local gears = require("gears")
 
 local function button_shape(cr, width, height)
 	gears.shape.rounded_rect(cr, width, height, 3)
