@@ -1,4 +1,4 @@
-local font_icons = require("ui.widgets.font-icons")
+local font_icons = require("wm.ui.widgets.font-icons")
 local commands   = require("settings.commands")
 
 local awful = require("awful")
@@ -6,7 +6,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
-local clickable_container = require("ui.widgets.clickable-container")
+local clickable_container = require("wm.ui.widgets.clickable-container")
 
 local wifiarc_widget = {}
 

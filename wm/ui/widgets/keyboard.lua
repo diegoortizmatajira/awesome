@@ -1,7 +1,7 @@
-local font_icons = require("ui.widgets.font-icons")
+local font_icons = require("wm.ui.widgets.font-icons")
 local wibox = require("wibox")
 local awful = require("awful")
-local clickable_container = require("ui.widgets.clickable-container")
+local clickable_container = require("wm.ui.widgets.clickable-container")
 local commands = require("settings.commands")
 
 local function Keyboard(_, color)

@@ -1,6 +1,6 @@
 local wibox = require("wibox")
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
-local clickable_container = require("ui.widgets.clickable-container")
+local clickable_container = require("wm.ui.widgets.clickable-container")
 
 local function Audio(_, color)
 	local custom_widget = {

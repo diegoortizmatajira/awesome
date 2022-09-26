@@ -1,8 +1,8 @@
-local font_icons = require("ui.widgets.font-icons")
+local font_icons = require("wm.ui.widgets.font-icons")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local dpi = require("beautiful").xresources.apply_dpi
 local wibox = require("wibox")
-local clickable_container = require("ui.widgets.clickable-container")
+local clickable_container = require("wm.ui.widgets.clickable-container")
 
 local function Clock(_, color)
 	-- Clock / Calendar 12AM/PM fornat

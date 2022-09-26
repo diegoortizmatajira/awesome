@@ -1,7 +1,7 @@
 local awful = require("awful")
-local font_icons = require("ui.widgets.font-icons")
+local font_icons = require("wm.ui.widgets.font-icons")
 local wibox = require("wibox")
-local clickable_container = require("ui.widgets.clickable-container")
+local clickable_container = require("wm.ui.widgets.clickable-container")
 
 local function control_center_toggle(_, color)
 	local custom_widget = {

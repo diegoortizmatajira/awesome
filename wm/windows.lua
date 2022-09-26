@@ -1,5 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
+local window_rules = require("settings.window-rules")
 
 local function focus_by_direction_handler(direction)
 	return function()
@@ -82,8 +83,22 @@ local function unfocus_signal_handler(c)
 	c.border_color = beautiful.border_normal
 end
 
-local function setup()
+local function renderClient(client, mode)
+	if client.skip_decoration or (client.rendering_mode == mode) then
+		return
+	end
+	client.rendering_mode = mode
+	window_rules.reset_window_properties(client)
+	if client.rendering_mode == "maximized" then
+		client.border_width = 0
+		client.shape = window_rules.maximized_window_shape
+	elseif client.rendering_mode == "tiled" then
+		client.border_width = beautiful.border_width
+		client.shape = window_rules.tiled_window_shape
+	end
 end
+
+local function setup() end
 
 return {
 	focus_left_handler = focus_by_direction_handler("left"),
@@ -104,5 +119,6 @@ return {
 	manage_signal_handler = manage_signal_handler,
 	focus_signal_handler = focus_signal_handler,
 	unfocus_signal_handler = unfocus_signal_handler,
+	renderClient = renderClient,
 	setup = setup,
 }

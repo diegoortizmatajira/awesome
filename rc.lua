@@ -1,6 +1,7 @@
+pcall(require, "luarocks.loader")
+
 require('awful.autofocus')
 require("wm")
-require("ui")
 
 local gears = require("gears")
 -- Run garbage collector regularly to prevent memory leaks
