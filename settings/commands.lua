@@ -2,6 +2,7 @@ return {
 	application_switcher = "custom-alttab",
 	application_launcher = "custom-launcher",
 	power_options = "custom-askpoweroptions",
+    wallpaper = "custom-wallpaper",
     bluetooth_options = "blueman-manager",
 	terminal = "kitty",
 	lock = "custom-lock",
