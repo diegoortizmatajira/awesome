@@ -3,10 +3,10 @@ local apps = require("utils.apps")
 local input = require("utils.input")
 local modalbind = require("utils.modal-bind")
 local mappings = require("settings.mappings")
+local window_rules = require("settings.window-rules")
 local layouts = require("wm.layouts")
 local windows = require("wm.windows")
 local workspaces = require("wm.workspaces")
-local state = require("wm.state")
 local map_handler, vim, key = input.map_handler, input.vim, input.key
 
 local screen_move_map = {
@@ -261,9 +261,7 @@ end
 
 local function setup()
 	root.keys(global_keys)
-	state.set_client_keys(client_keys)
+	window_rules.build(client_keys)
 end
 
-return {
-	setup = setup,
-}
+setup()

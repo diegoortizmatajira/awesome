@@ -3,15 +3,6 @@ local gears = require("gears")
 local dpi = require("beautiful").xresources.apply_dpi
 local mat_colors = require("utils.mat-colors")
 
-local function _get_icon(path)
-	local cairo = require("lgi").cairo
-	local s = gears.surface(path)
-	local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
-	local cr = cairo.Context(img)
-	cr:set_source_surface(s, 0, 0)
-	cr:paint()
-	return img._native
-end
 
 local theme = {}
 local mono_font = "Jetbrains Mono Bold 9"
@@ -34,7 +25,7 @@ theme.background = mat_colors.background
 theme.panel_background = theme.background.hue_800 .. "AA"
 
 theme.icons = filesystem.get_configuration_dir() .. "/icons/"
-theme.default_app_icon = _get_icon(theme.icons .. "default.svg")
+theme.default_app_icon = theme.icons .. "default.svg"
 
 local transparent = "#00000000"
 

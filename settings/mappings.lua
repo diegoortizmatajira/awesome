@@ -5,7 +5,7 @@ local key, common, vim, metaKey, ctrlKey, altKey, shiftKey =
 return {
 	app_workspace_default = key({ metaKey }, common.Return),
 	awesome_help = key({ metaKey }, "F1"),
-	awesome_quit = key({ metaKey, ctrlKey }, "q"),
+	awesome_quit = key({ metaKey, ctrlKey, shiftKey }, "q"),
 	awesome_restart = key({ metaKey, ctrlKey }, "r"),
 	client_close = { key({ altKey }, "F4"), key({ metaKey }, "w") },
 	client_float = key({ altKey }, "f"),

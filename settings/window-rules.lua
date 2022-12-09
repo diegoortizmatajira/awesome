@@ -1,5 +1,6 @@
 local awful = require("awful")
 local gears = require("gears")
+local input = require("utils.input")
 
 local function maximized_window_shape()
 	return function(cr, w, h)
@@ -39,8 +40,27 @@ local function reset_window_properties(properties)
 	return properties
 end
 
-local function build(client_keys, client_buttons)
-	return {
+local client_buttons = awful.util.table.join(
+	awful.button({}, 1, function(c)
+		client.focus = c
+		c:raise()
+	end),
+	-- Left click
+	awful.button({ input.metaKey }, 1, awful.mouse.client.move),
+	-- Right click
+	awful.button({ input.metaKey }, 3, awful.mouse.client.resize),
+	-- Mouse Wheel up
+	awful.button({ input.metaKey }, 4, function()
+		awful.layout.inc(1)
+	end),
+	-- Mouse Wheel down
+	awful.button({ input.metaKey }, 5, function()
+		awful.layout.inc(-1)
+	end)
+)
+
+local function build(client_keys)
+	awful.rules.rules = {
 		-- All clients will match this rule.
 		{
 			rule = {},

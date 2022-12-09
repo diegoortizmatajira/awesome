@@ -1,8 +1,8 @@
 local awful = require("awful")
-local state = require("wm.state")
 local workspace_tags = require("settings.workspace-tags")
 
 local MOVE_TO_CURRENT_DISPLAY = false
+local taglist
 
 local function move_to_screen_handler(relative)
 	return function()
@@ -25,8 +25,7 @@ local function select_next_handler()
 end
 
 local function find_empty_handler()
-	local tags = state.get_tags()
-	for _, tag in ipairs(tags) do
+	for _, tag in ipairs(taglist) do
 		if #tag:clients() == 0 and not tag.selected then
 			if MOVE_TO_CURRENT_DISPLAY and #tag.screen.tags > 1 then
 				awful.tag.setscreen(screen, tag)
@@ -43,9 +42,8 @@ local function find_empty_handler()
 end
 
 local function move_to_empty_handler()
-	local tags = state.get_tags()
 	local screen = awful.screen.focused()
-	for _, tag in ipairs(tags) do
+	for _, tag in ipairs(taglist) do
 		if client.focus and #tag:clients() == 0 and not tag.selected then
 			if MOVE_TO_CURRENT_DISPLAY and #tag.screen.tags > 1 then
 				awful.tag.setscreen(screen, tag)
@@ -66,8 +64,7 @@ end
 local function select_by_index_handler(i)
 	return function()
 		local screen = awful.screen.focused()
-		local tags = state.get_tags()
-		local tag = tags[i]
+		local tag = taglist[i]
 		if tag then
 			if MOVE_TO_CURRENT_DISPLAY and #tag:clients() == 0 and not tag.selected and #tag.screen.tags > 1 then
 				awful.tag.setscreen(screen, tag)
@@ -80,8 +77,7 @@ end
 
 local function toggle_by_index_handler(i)
 	return function()
-		local tags = state.get_tags()
-		local tag = tags[i]
+		local tag = taglist[i]
 		if tag then
 			awful.tag.viewtoggle(tag)
 		end
@@ -91,8 +87,7 @@ end
 local function assing_by_index_handler(i)
 	return function()
 		if client.focus then
-			local tags = state.get_tags()
-			local tag = tags[i]
+			local tag = taglist[i]
 			if tag then
 				client.focus:move_to_tag(tag)
 				tag:view_only()
@@ -119,8 +114,8 @@ local function smart_layout_gaps_handler(t)
 	end
 end
 
+
 local function setup()
-	local taglist
 	if taglist == nil or #taglist == 0 then
 		taglist = {}
 		for _, tag in ipairs(workspace_tags) do
@@ -136,8 +131,17 @@ local function setup()
 			)
 		end
 	end
-	state.set_tags(taglist)
+	awful.screen.connect_for_each_screen(function(s)
+		for _, t in ipairs(taglist) do
+			if t.screen.index == s.index then
+				t:view_only()
+			end
+		end
+	end)
+	tag.connect_signal("property::layout", smart_layout_gaps_handler)
 end
+
+setup()
 
 return {
 	to_left_screen_handler = move_to_screen_handler("left"),
@@ -152,5 +156,5 @@ return {
 	toggle_by_index_handler = toggle_by_index_handler,
 	assign_by_index_handler = assing_by_index_handler,
 	smart_layout_gaps_handler = smart_layout_gaps_handler,
-	setup = setup,
+	tag_list = taglist,
 }
