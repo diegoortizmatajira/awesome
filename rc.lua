@@ -1,10 +1,12 @@
-pcall(require, "luarocks.loader")
+require("awful.autofocus")
+require("wm.style")
+require("wm.ui")
+require("wm.windows")
+require("wm.workspaces")
+require("wm.keyboard")
 
-require('awful.autofocus')
-require("wm")
-
-local gears = require("gears")
 -- Run garbage collector regularly to prevent memory leaks
+local gears = require("gears")
 gears.timer({
 	timeout = 30,
 	autostart = true,

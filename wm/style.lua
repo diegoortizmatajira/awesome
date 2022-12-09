@@ -4,6 +4,4 @@ local function setup()
 	beautiful.init(default_theme)
 end
 
-return {
-	setup = setup,
-}
+setup()
