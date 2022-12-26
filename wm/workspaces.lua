@@ -17,11 +17,11 @@ local function move_to_screen_handler(relative)
 end
 
 local function select_prev_handler()
-	return awful.tag.viewprev
+	return awful.tag.viewprev()
 end
 
 local function select_next_handler()
-	return awful.tag.viewnext
+	return awful.tag.viewnext()
 end
 
 local function find_empty_handler()
