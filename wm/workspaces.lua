@@ -17,14 +17,15 @@ local function move_to_screen_handler(relative)
 end
 
 local function select_prev_handler()
-	return awful.tag.viewprev
+	return awful.tag.viewprev()
 end
 
 local function select_next_handler()
-	return awful.tag.viewnext
+	return awful.tag.viewnext()
 end
 
 local function find_empty_handler()
+	local screen = awful.screen.focused()
 	for _, tag in ipairs(taglist) do
 		if #tag:clients() == 0 and not tag.selected then
 			if MOVE_TO_CURRENT_DISPLAY and #tag.screen.tags > 1 then
@@ -113,7 +114,6 @@ local function smart_layout_gaps_handler(t)
 		t.gap = 4
 	end
 end
-
 
 local function setup()
 	if taglist == nil or #taglist == 0 then

@@ -37,6 +37,8 @@ local function setup()
 	awful.layout.layouts = enabled_layouts
 end
 
+setup()
+
 return {
 	decrease_master_size_handler = decrease_master_size_handler,
 	increase_master_size_handler = increase_master_size_handler,
@@ -46,5 +48,4 @@ return {
 	increase_column_count_handler = increase_column_count_handler,
 	apply_next_handler = apply_next_handler,
 	apply_previous_handler = apply_previous_handler,
-	setup = setup,
 }
